@@ -31,7 +31,6 @@ def main():
     sum_mult = 0
     for i in range (cl_length - 1):
         m1 = np.multiply(a_intensities, corrections_lst[i])
-        #print(m1[1000:])
         sum_mult = np.add(sum_mult, m1)
     int_corrected = sum_mult/cl_length
     #graph both orignal and adjusted on same plot then normalize
@@ -42,7 +41,6 @@ def both_graphs(wavelengths, actual, corrected):
     # Initialise the subplot function using number of rows and columns
     max_a = np.max(actual)
     max_c = np.max(corrected)
-    #print(max_a,max_c)
     actual = actual/max_a
     corrected = corrected/max_c
     f = plt.figure()
@@ -70,12 +68,10 @@ def ideal():
     for wave in wavelengths:
         y = planck(wave, temp)
         intensities.append(y)
-    #id_plot(wavelengths, intensities)
     return (wavelengths,intensities)
     
 #plot ideal using ideal_wl, ideal_int = ideal()
 def id_plot(wavelengths, intensities):
-    #print(intensities)
     f = plt.figure()
     ax = f.add_subplot()
     plt.plot(wavelengths, intensities, linewidth=2.0)
@@ -106,8 +102,6 @@ def plot(wavelengths, intensities):
            ylim=(0,lim+100))
     x_axis_spacing = np.arange(350, 805, 50, dtype=int)
     ax.set_xticks(x_axis_spacing)
-    #f.set_figwidth(30)
-    #f.set_figheight(15)
     plt.plot(wavelengths, intensities, linewidth=2.0)
     plt.show()
     return
@@ -118,7 +112,6 @@ def plot(wavelengths, intensities):
 def correction(ideal, exp, sswvl):
     #normalize
     index = exp[0].index(sswvl)
-    #print(index)
     ideal = np.array(ideal[1])
     exp_i = np.array(exp[1])
     max_id = np.max(ideal)
@@ -138,17 +131,6 @@ def correction(ideal, exp, sswvl):
     correction_lst[correction_lst == 0] = 1
     return correction_lst
     
-
-# divide ideal y by experimental y
-# go through both y's list and divide and append to new list
-# in main function get those lists of factors
-# ex: c1 = [0.1,0.2,...]
-#     c2 = [1.3,0.6,...]
-# write for loop to multiply each Cn to the y (solar) then divide by total #Cn
-
-# FIX: fix 0 values in exp to 1
-#      figure out plotting
-#      
 
 if __name__=="__main__":
     main()
